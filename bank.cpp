@@ -1,11 +1,11 @@
 /*#ifndef BANK_H
 #define BANK_H
-
-
 #endif */
 #include<iostream>
 #include <map>
+
 using namespace std;
+
 class Bank;
 class Branch;
 int add_branch(Bank *a,Branch* b);
@@ -29,10 +29,10 @@ class Branch{
 class Bank {
     private:
     string bank_name;
-    map<string,Branch*> branches;
     string headquarters;
     public:
-    Bank(string n):bank_name(n){};
+    map<string,Branch*> branches;
+    Bank(string n,string h):bank_name(n),headquarters(h){};
     friend int add_branch(Bank *a,Branch *b);
     
 };
@@ -43,7 +43,9 @@ int add_branch(Bank *a,Branch* b)
 }
 int main(int argc, char const *argv[])
 {
-    Bank icici("icici bank");
+    Bank ICICI("icici bank","Delhi");
+    Branch dwd("dwd","ICICI000124","Jubilee Circle",&ICICI);
+    ICICI.branches["ICICI000124"]->display();
 
     return 0;
 }
