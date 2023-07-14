@@ -8,6 +8,7 @@ using namespace std;
 
 class Bank;
 class Branch;
+class Account;
 int add_branch(Bank *a,Branch* b);
 
 class Branch{
@@ -41,6 +42,36 @@ int add_branch(Bank *a,Branch* b)
     a->branches[b->IFSC]=b;
     return 0;
 }
+class Account{
+    private:
+    string name;
+    string cust_id;
+    string dob;
+    static int count;
+    public:
+    virtual void display()=0;
+    Account(string n,string db):name(n),dob(db){cust_id=count++;}
+
+};
+class Savings_Account{
+    private:
+    int savings_ac_no;
+    float savings_bal;
+    public:
+    int withdraw(int amount)
+    {
+        savings_bal=savings_bal-amount;
+        return savings_bal;
+    }
+    int deposit(int amount)
+    {
+        savings_bal+=amount;
+        return savings_bal;
+    }
+};
+
+int Account::count=1;
+
 int main(int argc, char const *argv[])
 {
     Bank ICICI("icici bank","Delhi");
