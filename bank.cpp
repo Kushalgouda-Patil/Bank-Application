@@ -60,8 +60,13 @@ void add_account(Branch *br,int cust_id,Account* ptr,string type)
         br->Accounts[cust_id][1]=ptr;
     else if(type=="CD")
         br->Accounts[cust_id][2]=ptr;
-    else
+    else if(type=="PPF")
         br->Accounts[cust_id][3]=ptr;
+    else if(type=="PPF")
+        br->Accounts[cust_id][4]=ptr;
+    else
+        br->Accounts[cust_id][5]=ptr;
+
 }
 class Account{
     protected:
@@ -105,17 +110,19 @@ class Account{
 
 };
 int Account::count = 1;
-
+class DebitCard;
 class Savings_Account : public Account {
 private:
     int savings_ac_no;
     float savings_bal;
     static int count;
+    DebitCard* obj_card;
 
 public:
     Savings_Account(Branch* br, string name, string dob, string address, float open_bal)
         : Account(br, name, dob, address, "SB"), savings_bal(open_bal) {
         savings_ac_no = count++;
+        obj_card=nullptr;
     }
 
     Savings_Account(Branch* br, int cust_id1, string type, float open_bal)
@@ -128,8 +135,7 @@ public:
             savings_bal -= amount;
             return savings_bal;
         } else {
-            cout << "Insufficient balance" << endl;
-            return -1; // Indicate an error condition, if needed.
+            throw "Insufficient balance";
         }
     }
 
@@ -283,6 +289,7 @@ private:
     float loan_amount;
     float interest_rate;
     float monthly_payment;
+    static int count;
 
 public:
     Loan_Account(Branch *br,string name,string dob,string address,float amt,float ir):Account(br,name,dob,address,"LA"),loan_amount(amt),interest_rate(ir)
@@ -309,10 +316,52 @@ public:
         }
     }
 };
+int Loan_Account::count = 16703;
+#include <ctime>
 
+class DebitCard {
+private:
+    int Card_no;
+    string issue_date;
+    string expiry_date;
+    Savings_Account* linked_sb;
+    int cvv;
+    static int count;
+public:
+    DebitCard(Savings_Account& sb)
+    {
+        srand(time(0));
+        cvv=rand()%1000;
+        time_t currentTime = time(nullptr);
+        tm* localTime = localtime(&currentTime);
+        char buffer[80];
+        strftime(buffer, sizeof(buffer), "%d-%m-%Y", localTime);
+        issue_date=buffer;
+        expiry_date="08/12/2030";
+        Card_no=count++;
+        sb.obj_card=this;
+    }
+    void withdraw(int cvv1,int amt)
+    {
+        if(cvv=cvv1)
+        {
+            linked_sb->withdraw(amt);
+        }
+        else
+        {
+            cout<<"Invalid Card Details";
+        }
+    }
+    void display_card()
+    {
+        cout<<"Card_no "<<Card_no<<endl;
+        cout<<"CVV "<<cvv<<endl;
+    }
+};
+int DebitCard::count = 156078904567;
 int main(int argc, char const *argv[])
 {
-    Bank ICICI("icici bank","Delhi");
+    /*Bank ICICI("icici bank","Delhi");
     Branch dwd("dwd","ICICI000124","Jubilee Circle",&ICICI);
     ICICI.branches["ICICI000124"]->display();
     Savings_Account s1(&dwd,"Kushal","26/07/2003","DHarwad",4500);
