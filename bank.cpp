@@ -6,6 +6,7 @@ Design Pattern-> name*/
 #include<iostream>
 #include<bits/stdc++.h>
 #include <map>
+#include <ctime>
 
 using namespace std;
 
@@ -25,7 +26,7 @@ class Branch{
     branch_name(br_name),IFSC(ifsc),branch_address(br_address){
         add_branch(obj,this);
     }
-    virtual void display()
+    void display()
     {
         cout<<branch_name<<endl<<
         IFSC<<endl<<branch_address<<endl;
@@ -116,9 +117,10 @@ private:
     int savings_ac_no;
     float savings_bal;
     static int count;
-    DebitCard* obj_card;
+    
 
 public:
+    DebitCard* obj_card;
     Savings_Account(Branch* br, string name, string dob, string address, float open_bal)
         : Account(br, name, dob, address, "SB"), savings_bal(open_bal) {
         savings_ac_no = count++;
@@ -317,7 +319,7 @@ public:
     }
 };
 int Loan_Account::count = 16703;
-#include <ctime>
+
 
 class DebitCard {
 private:
@@ -361,7 +363,7 @@ public:
 int DebitCard::count = 156078904567;
 int main(int argc, char const *argv[])
 {
-    /*Bank ICICI("icici bank","Delhi");
+    Bank ICICI("icici bank","Delhi");
     Branch dwd("dwd","ICICI000124","Jubilee Circle",&ICICI);
     ICICI.branches["ICICI000124"]->display();
     Savings_Account s1(&dwd,"Kushal","26/07/2003","DHarwad",4500);
@@ -369,7 +371,7 @@ int main(int argc, char const *argv[])
     //cout<<"Maps"<<endl;
     //dwd.Accounts[1][0]->get_name();
     //FixedDeposit_Account f1(&dwd,"kush","26","dwdagshg",150000,2);
-    //FixedDeposit_Account f1(&dwd,1,150000,2);
+    //FixedDeposit_Account f1(&dwd,1,150000,2);*/
     Current_Account f1(&dwd,"Kusha","36","dwd",34500);
     dwd.Accounts[f1.get_cust_id()][2]->display();
     return 0;
