@@ -8,6 +8,7 @@ Loan_Account::Loan_Account(Branch* br, string name, string dob, string address, 
     : loan_amount(amt), interest_rate(ir), Account(br, name, dob, address, "LA")
 {
     loan_number = count++;
+    monthly_payment=500;
 }
 
 Loan_Account::Loan_Account(Branch* br, int cust_id1, float amt, float ir)
@@ -18,20 +19,23 @@ Loan_Account::Loan_Account(Branch* br, int cust_id1, float amt, float ir)
 
 void Loan_Account::display()
 {
+    cout << "---------------------------------------" << endl;
     cout << "Loan" << endl;
     cout << "Loan Number: " << loan_number << endl;
     cout << "Loan Amount: " << loan_amount << endl;
     cout << "Interest Rate: " << interest_rate << "%" << endl;
-    cout << "Monthly Payment: " << monthly_payment << endl;
+    cout << "Monthly Payment: " << monthly_payment << endl
+    << "Customer ID: " << cust_id << endl;
+    cout << "---------------------------------------" << endl;
 }
 
-int Loan_Account::deposit(float amount)
+int Loan_Account::deposit(int amount)
 {
     if (amount >= monthly_payment)
     {
-        amount -= monthly_payment;
-        cout << "Payment of " << monthly_payment << " made. Remaining balance: " << amount << endl;
-        return amount;
+        loan_amount -= monthly_payment;
+        cout << "Payment of " << monthly_payment << " made. Remaining balance: " << loan_amount << endl;
+        return loan_amount;
     }
     else
     {

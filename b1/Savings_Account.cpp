@@ -29,10 +29,12 @@ int Savings_Account::deposit(int amount) {
 }
 
 void Savings_Account::display() {
+    cout << "---------------------------------------" << endl;
     cout << "Name: " << name << endl
         << "Date of Birth: " << dob << endl
         << "Customer ID: " << cust_id << endl
         << "Savings Account Number: " << savings_ac_no << endl
         <<"Balance: "<<savings_bal<<endl;
+    cout << "---------------------------------------" << endl;
 }
 int Savings_Account::count = 1000;

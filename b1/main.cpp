@@ -16,6 +16,7 @@ void new_cust()
     cout<<"Press 2 to open FD account"<<endl;
     cout<<"Press 3 to open PPF account"<<endl;
     cout<<"Press 4 to open Loan account"<<endl;
+    cout<<"Press 5 to open Current account"<<endl;
     int num;
     cin>>num;
     Account* baseptr;
@@ -59,6 +60,15 @@ void new_cust()
         baseptr=new Loan_Account(&DWD,name,dob,address,loan_amount,interest_rate);
         baseptr->display();
     }
+    else if(num==5)
+    {
+        float open_bal;
+        cout<<"Enter Name,DOB,Address and Opening Balance"<<endl;
+        cin>>name>>dob>>address>>open_bal;
+        baseptr=new Current_Account(&DWD,name,dob,address,open_bal);
+        cout<<"Account Successfully created!"<<endl;
+        baseptr->display();
+    }
     else
     {
         throw "Invalid Selection";
@@ -74,7 +84,7 @@ int existing_cust()
     cout<<"Press 3 to for PPF account"<<endl;
     cout<<"Press 4 to for Loan account"<<endl;
     cout<<"Press 5 to for Current account"<<endl;
-    cout<<"Press 6 to generate Debit Card"<<endl;
+    //cout<<"Press 6 to generate Debit Card"<<endl;
     cin>>num;
     Account* baseptr;
     if(num==1)
@@ -175,7 +185,7 @@ int existing_cust()
                 cout << "Enter the amount to deposit: ";
                 cin >> amount;
                 int bal = DWD.Accounts[cid][3]->deposit(amount);
-                cout << "bal" << bal << endl;
+                cout << "Bal=" << bal << endl;
                 break;
             }
             case 2:
@@ -219,7 +229,7 @@ int existing_cust()
                 cout << "Enter the amount to deposit: ";
                 cin >> amount;
                 int bal = DWD.Accounts[cid][4]->deposit(amount);
-                cout << "bal" << bal << endl;
+                cout << "Bal=" << bal << endl;
                 break;
             }
             case 2:
@@ -260,7 +270,7 @@ int existing_cust()
                     cout << "Enter the amount to deposit: ";
                     cin >> amount;
                     int bal = DWD.Accounts[cid][2]->deposit(amount);
-                    cout << "bal" << bal << endl;
+                    cout << "Bal=" << bal << endl;
                     break;
                 }
                 case 2:

@@ -48,7 +48,8 @@ void Current_Account::display()
 {
     cout << "---------------------------------------" << endl;
     cout << "Current Account" << endl;
-    cout << "Account Number: " << current_acc_no << endl;
+    cout << "Account Number: " << current_acc_no << endl
+    << "Customer ID: " << cust_id << endl;
     cout << "Balance: " << current_bal << endl;
     cout << "Overdraft Limit: " << overdraft_limit << endl;
     cout << "---------------------------------------" << endl;

@@ -16,7 +16,7 @@ public:
     Loan_Account(Branch* br, string name, string dob, string address, float amt, float ir);
     Loan_Account(Branch* br, int cust_id1, float amt, float ir);
     void display();
-    int deposit(float amount);
+    int deposit(int amount);
 };
 
 #endif // LOAN_ACCOUNT_H
